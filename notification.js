@@ -5,12 +5,10 @@ const axios = require('axios'); //used to send alert to target URL
 const app = express();
 app.use(express.json()); //allows api to read the JSON body
 
-
 //Microservice main endpoint
 app.post('/notifications/send', async (req, res) => {
     //Extract alert details from request body
     const { targetURL, title, description} = req.body;
-
     const alertDetails = { title, description };
 
     //create unique id and timestamp for the alert
