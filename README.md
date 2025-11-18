@@ -6,16 +6,13 @@ This microservice allows you to send a notification alert to your site.
 Data will be requested by a call using fetch call to the program 
 
 request parameters: title, description
-example call:
+example call sending POST request to notifications/send with the following:
 ```json
-       { method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: { 
+{ 
           "targetURL": "http:localhost:5173"
           "title": "New Update Made", 
           "description": "New functionality added for saving items" 
 } 
-};
   ```
 # How to receive data:
 You will receive back JSON body that includes a status, message, id, and time
