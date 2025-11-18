@@ -9,20 +9,22 @@ app.use(express.json()); //allows api to read the JSON body
 app.post('/notifications/send', async (req, res) => {
     //Extract alert details from request body
     const { targetURL, title, description} = req.body;
-    const alertDetails = { title, description };
+    const alertDetails = { 
+        id: Math.floor(Math.random() * 1000000),
+        time: new Date().toISOString(),
+        title, description };
 
     //create unique id and timestamp for the alert
-    const id = Math.floor(Math.random() * 1000000);
-    alertDetails.id = id;
-
-    const time = new Date().toISOString();
-    alertDetails.time = time;
- 
     try {
+        const response =
         await axios.post(targetURL, alertDetails);
-        res.status(200).send({ status: 'Success', message: 'Notification Sent', id: alertDetails.id, time: alertDetails.time });
+        res.status(200).json({ status: 'Success', 
+        message: 'Notification Sent', 
+        id: alertDetails.id,
+        time: alertDetails.time
+     });
     } catch (error) {
-        res.status(500).send({ status: 'Error sending alert', error: error.message });
+        res.status(500).json({ status: 'Error sending alert', error: error.message });
     }       
 });
 
